@@ -1,9 +1,12 @@
 // powercord.styleManager.themes.forEach((f) => powercord.styleManager.disable(f.entityID))
-const { Plugin } = require('powercord/entities');
+const { Plugin } = require("powercord/entities");
 
 module.exports = class Panikk extends Plugin {
   constructor() {
     super();
+    this.state = {
+      shutted: false,
+    };
   }
 
   async startPlugin() {
@@ -14,10 +17,14 @@ module.exports = class Panikk extends Plugin {
     document.body.removeEventListener("keyup", this.keyup);
   }
   keyup(event) {
-    if (event.key == 'F5') {
-      powercord.styleManager.themes.forEach((f) =>
-        powercord.styleManager.disable(f.entityID)
-      );
+    if (event.key == "F5") {
+      if (this.shutted === false) {
+        powercord.shutdown();
+        this.shutted = true;
+      } else {
+        powercord.startup();
+        this.shutted = false;
+      }
     }
   }
 };
