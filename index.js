@@ -18,12 +18,12 @@ module.exports = class Panikk extends Plugin {
   }
   keyup(event) {
     if (event.key == "F5") {
-      if (this.shutted === false) {
+      if (this.state.shutted === false) {
         powercord.shutdown();
-        this.shutted = true;
+        this.state.shutted = true;
       } else {
         powercord.startup();
-        this.shutted = false;
+        this.state.shutted = false;
       }
     }
   }
