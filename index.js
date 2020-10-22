@@ -1,25 +1,25 @@
 const { Plugin } = require("powercord/entities");
+let suppress = false;
 module.exports = class Panikk extends Plugin {
-  constructor() {
-    super();
-    this.state = {
-      shutted: false,
-    };
-  }
   async startPlugin() {
+    document.body.removeEventListener("keyup", this.keyup);
     document.body.addEventListener("keyup", this.keyup);
   }
   pluginWillUnload() {
-    document.body.removeEventListener("keyup", this.keyup);
+      if (!suppress) {
+        document.body.removeEventListener("keyup", this.keyup);
+      }
   }
-  keyup(event) {
+  async keyup(event) {
     if (event.key == "F5") {
-      if (this.state.shutted === false) {
-        powercord.shutdown();
-        this.state.shutted = true;
+      if(powercord?.api?.settings?.ready == true) {
+        suppress = true
+        await powercord.shutdown()
+        suppress = false
       } else {
-        powercord.startup();
-        this.state.shutted = false;
+        suppress = true
+        await powercord.startup()
+        suppress = false
       }
     }
   }
