@@ -13,7 +13,7 @@ module.exports = class Panikk extends Plugin {
       label: "Panikk",
       render: Settings,
     });
-    dispatcher.subscribe("STREAM_START", async () => {
+    dispatcher.addSubscription("STREAM_START", async () => {
       if (!this.settings.get("panikkOnLive", false)) {
         return;
       }
@@ -21,7 +21,7 @@ module.exports = class Panikk extends Plugin {
       await powercord.shutdown();
       suppress = false;
     });
-    dispatcher.subscribe("STREAM_STOP", async () => {
+    dispatcher.addSubscription("STREAM_STOP", async () => {
       if (!this.settings.get("panikkOnLive", false)) {
         return;
       }
