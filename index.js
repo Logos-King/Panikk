@@ -57,16 +57,20 @@ module.exports = class Panikk extends Plugin {
         suppress = false;
     }
     async addHandlers() {
-        for (let i = 0; i < this.handlers.listeners.length; i++)
+        for (let i = 0; i < this.handlers.listeners.length; i++) {
             document.body.addEventListener(this.handlers.listeners[i][0], this.handlers.listeners[i][1]);
-        for (let i = 0; i < this.handlers.subscriptions.length; i++)
+        }
+        for (let i = 0; i < this.handlers.subscriptions.length; i++) {
             Dispatcher.subscribe(this.handlers.subscriptions[i][0], this.handlers.subscriptions[i][1]);
+        }
     }
     async removeHandlers() {
-        for (let i = 0; i < this.handlers.listeners.length; i++)
+        for (let i = 0; i < this.handlers.listeners.length; i++) {
             document.body.removeEventListener(this.handlers.listeners[i][0], this.handlers.listeners[i][1]);
-        for (let i = 0; i < this.handlers.subscriptions.length; i++)
+        }
+        for (let i = 0; i < this.handlers.subscriptions.length; i++) {
             Dispatcher.unsubscribe(this.handlers.subscriptions[i][0], this.handlers.subscriptions[i][1]);
+        }
     }
 };
 };
