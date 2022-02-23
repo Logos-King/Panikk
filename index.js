@@ -29,7 +29,7 @@ module.exports = class Panikk extends Plugin {
       await powercord.startup();
       suppress = false;
     });
-    document.body.removeEventListener("keyup", this.keyup);
+    document.body.removeEventListener("keyup", (e) => this.keyup(e, this));
     document.body.addEventListener("keyup", (e) => this.keyup(e, this));
   }
 
